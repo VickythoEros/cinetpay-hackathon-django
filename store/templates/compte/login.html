@@ -1,0 +1,60 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="row mx-auto text-center">
+    <div class="col-lg-5  mx-auto text-center">
+        <div class="box-element" id="form-wrapper">
+            <form action="/login" method="POST">
+                <div id="shipping-info">
+                    <hr>
+                    <p class="col mx-auto text-center" style="color: orange;font-weight: bolder;font-size: 20px;">Se Connecter:</p>
+                    <hr> {% csrf_token %} {% if error%}
+                    <div class="alert alert-danger" role="alert">
+                        {{error}}
+                    </div>
+                    {% endif %}
+                    <div class=" form-control " style="margin-top: 100px;border: 0px;">
+                        <input required type="email" name="email" id="" value="{{values.email}}" type="email " placeholder="abc@gmail.com " style="border-top: 0px;margin-left: 10px;border-left: 0px;border-right: 0px;float: left;width: 500px;">
+                    </div>
+                    <div class=" form-control " style="margin-top: 115px;border: 0px;">
+                        <input type="password" name="password" id="" placeholder="Mot De Passe.. " style="border-top: 0px;margin-left: 10px;border-left: 0px;border-right: 0px;float: left;width: 400px;">
+                    </div>
+                </div>
+                <input type="checkbox " class="form-check-input " id="exampleCheck1 ">
+                <label class="form-check-label d-grid gap-2 " for="exampleCheck1 ">Vérifiez-moi</label>
+                <hr>
+                <div class="col mx-auto text-center " style="margin-top: 70px; ">
+                    <button id="form-button " class="btn btn-block mx-auto " type="submit " style="background-color: orange; color: white;font-weight: bolder;font-size: 20px; width: 550px;margin-bottom: 10px;border-radius: 2px; ">SE CONNECTER</button>
+                    <button id="form-button " class="btn btn-block mx-auto " type="submit " style="background-color: #ebf0f3; color: black;font-weight: bolder;font-size: 20px; width: 550px; ">SE CONNECTER AVEC GOOGLE</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-5 mx-auto text-center ">
+        <div class="box-element " id="form-wrapper " style="width: 100%; margin-left: 50px; ">
+            <form id="form ">
+                <div class="col mx-auto text-center ">
+                    <hr>
+                    <p style="color: orange;font-weight: bolder;font-size: 20px; ">Creer un Compte:</p>
+                    <hr>
+                    <div class="text-center col ">
+                        <p>Créez votre compte client E-Cinetpay en quelques clics ! Vous pouvez vous
+                            <br> inscrire soit en utilisant votre adresse e-mail,
+                            <br> soit via votre compte Google.</p>
+                        <img src="https://th.bing.com/th/id/Rd51d7c0fde6d96a31538a86cbd57f3c0?rik=%2fTJxRkU2V371QQ&riu=http%3a%2f%2ftechnologyend.com%2fwp-content%2fuploads%2f2015%2f11%2fwhy-shop-online.jpg&ehk=v1KiYT0i5U1ABCRueDSdLqnazh2BdlVD89Z4qXE0Kgs%3d&risl=&pid=ImgRaw "
+                            alt=" " class=" " style="height: 150px; ">
+                        <!-- <hr> -->
+                        <hr>
+                    </div>
+                </div>
+
+                <hr>
+                <div class="col mx-auto text-center " style="margin-top: 70px; ">
+                    <button id="form-button " class="btn btn-block mx-auto " style="background-color: orange;font-weight: bolder;font-size: 20px; width: 550px;margin-bottom: 10px;border-radius: 2px; "><a href="/signup" style=" color: white">CREER VOTRE COMPTE</a></button>
+                    <button id="form-button " class="btn btn-block mx-auto " style="background-color: #ebf0f3; color: black;font-weight: bolder;font-size: 20px; width: 550px; ">CREER VOTRE COMPTE AVEC GOOGLE</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

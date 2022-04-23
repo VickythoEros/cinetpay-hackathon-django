@@ -1,0 +1,147 @@
+{% extends 'base.html' %} {% block content %} {% load cart %} {% load custom_filter %}
+<div class="container">
+    <div class="border rounded p-4 m-4">
+        <p class="display-4 pl-4 ml-4 btn btn-success rounded-pill">VOTRE PANIER</p>
+        <hr>
+        <table class="table">
+            <thead>
+                <tr>
+                    <div class="pub-produit">
+                        <span>
+                    <th>Sno.</th>
+                    </span>
+                        <span>
+                    <th>Image</th>
+                   </span>
+                        <span>
+                    <th>Produit</th>
+                  </span>
+                        <th>Prix</th>
+                        <th>Quantité</th>
+                        <th>Total</th>
+                    </div>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for product in products %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>
+                        <img style="height: 80px;" class="rounded-circle" src="{{product.image.url}}" alt="">
+                        <input hidden type="text" name='product' value='{{product.id}}'>
+                        <input hidden type="text" name='remove' value='True'>
+                        <input type="submit" value=" Supprimer " class="display-4 pl-4 ml-4 btn btn-success rounded-pill" style="float: left;">
+                    </td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.price|currency}}</td>
+                    <td>{% if product|is_in_cart:request.session.cart %}
+                        <div class="row no-gutters">
+                            <form action="/#{{product.id}}" class="col-2 " method="post">
+                                {% csrf_token %}
+                                <input hidden type="text" name='product' value='{{product.id}}'>
+                                <input hidden type="text" name='remove' value='True'>
+                                <input type="submit" value=" - " class="btn btn-block btn-success border-right">
+                            </form>
+                            <p class="col-4" style="text-align: center;">{{product|cart_quantity:request.session.cart}}</p>
+                            <form action="/#{{product.id}}" class="col-2 " method="post">
+                                {% csrf_token %}
+                                <input hidden type="text" name='product' value='{{product.id}}'>
+                                <input type="submit" value="     + " class="btn btn-block btn-success border-left">
+                            </form>
+                        </div>
+                        {% else %}
+                        <form action="/#{{product.id}}" method="POST" class="btn-block">
+                            {% csrf_token %}
+                            <input hidden type="text" name='product' value='{{product.id}}'>
+                            <input type="submit" class="float-right btn btn-success form-control" value="Add To Cart">
+                        </form>
+                        {% endif %}
+                    </td>
+                    <td>{{product|price_total:request.session.cart|currency}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <th colspan="4"></th>
+                    <th class="" colspan="">Total</th>
+                    <th>{{products|total_cart_price:request.session.cart|currency}}</th>
+                </tr>
+            </tfoot>
+        </table>
+        <hr>
+        <div class="m-3 p-3">
+            <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-outline-success border rounded  col-lg-3 float-right">Vérifier</a>
+        </div>
+    </div>
+</div>
+
+
+<!-- modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Formulaire de paiement
+                </h5>
+                <hr>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="m-2 p-3">
+                    <form action="/check-out" method="POST">
+                        {% csrf_token %}
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <input required class="form-control " type="text " name="name " placeholder="Nom.. ">
+                            </div>
+                            <div class="col-lg-6">
+                                <input required class="form-control " type="email " name="email " placeholder="Email.. ">
+                            </div>
+                        </div>
+                        <div id="shipping-info ">
+                            <hr>
+                            <p>Informations sur la livraison:</p>
+                            <hr>
+                            <div class="row" style="padding-bottom:10px ;">
+                                <div class="col-lg-6">
+                                    <input class="form-control " type="text " name="address" placeholder="Address.. ">
+                                </div>
+                                <div class="col-lg-6">
+                                    <input class="form-control " type="text " name="city" placeholder="Ville.. ">
+                                </div>
+                            </div>
+                            <div class="row" style="padding-bottom:10px ;">
+                                <div class="col-lg-6">
+                                    <input class="form-control " type="text " name="state" placeholder="Pays.. ">
+                                </div>
+                                <div class="col-lg-6">
+                                    <input class="form-control " type="text " name="zipcode" placeholder="Code Postale.. ">
+                                </div>
+                            </div>
+                            <div class="form-field">
+                                <input class="form-control " type="text " name="country" placeholder="Code Postale.. ">
+                            </div>
+                        </div>
+                        <hr>
+                        <input id="form-button " class="btn btn-success btn-block " type="submit" value="Valider">
+
+                    </form>
+                </div>
+                <br>
+                <div class="box-element hidden " id="payment-info ">
+                    <small>Cinetpay Options</small>
+                    <div id="Cinetpay-button-container "></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {% endblock %}

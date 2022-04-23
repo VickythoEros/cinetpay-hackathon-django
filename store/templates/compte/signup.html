@@ -1,0 +1,48 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="row mx-auto text-center">
+    <div class="col-lg-5  mx-auto text-center">
+        <div class="box-element" id="form-wrapper">
+            <form action="/signup" method="POST">
+                <div id="shipping-info">
+                    <hr>
+                    <p class="col mx-auto text-center" style="color: orange;font-weight: bolder;font-size: 20px;">CREER VOTRE COMPTE:</p>
+                    <hr> {% csrf_token %} {% if error%}
+                    <div class="alert alert-danger" role="alert">
+                        {{error}}
+                    </div>
+                    {% endif %}
+                    <div class="row mx-auto text-center" style="margin-bottom:10px ;margin-top: 10px; width: 1000px;">
+                        <div class="col-lg-6">
+                            <input type="text" name="firstname" class="form-control " id="" value="{{values.first_name}}" placeholder="Nom" style="border-top: 10px;border-left: 0px;border-right: 0px;float: left;width: 250px;">
+                        </div>
+                        <div class="col-lg-6" style="margin-right: 0px;">
+                            <input type="text" name="lastname" class="form-control " id="" value="{{values.last_name}}" type="email " placeholder="Prenom" style="border-top: 10px;border-left: 0px;border-right: 0px;float: left;width: 250px;margin-right: 100px;">
+                        </div>
+                    </div>
+                    <div class="row mx-auto text-center" style="margin-bottom:10px ; margin-top: 100px; width: 1000px;">
+                        <div class="col-lg-6">
+                            <input type="text" name="phone" class="form-control " id="" value="{{values.phone}}" placeholder="9876543210" style="border-top: 10px;border-left: 0px;border-right: 0px;float: left;width: 250px;">
+                        </div>
+
+                        <div class="col-lg-6">
+                            <input required type="email" name="email" class="form-control " id="" value="{{values.email}}" placeholder="abc@gmail.com" style="border-top: 10px;border-left: 0px;border-right: 0px;float: left;width: 250px;">
+                        </div>
+                    </div>
+                    <div class=" form-control " style="margin-top: 115px;border: 0px;">
+                        <input type="password" name="password" id="" placeholder="Mot De Passe.. " style="border-top: 0px;margin-left: 10px;border-left: 0px;border-right: 0px;float: left;width: 500px;">
+                    </div>
+                </div>
+                <input type="checkbox " class="form-check-input " id="exampleCheck1 ">
+                <label class="form-check-label d-grid gap-2 " for="exampleCheck1 ">Vérifiez-moi</label>
+                <hr>
+                <div class="col mx-auto text-center " style="margin-top: 70px; ">
+                    <button id="form-button " class="btn btn-block mx-auto " type="submit " style="background-color: orange; color: white;font-weight: bolder;font-size: 20px; width: 550px;margin-bottom: 10px;border-radius: 2px; ">CREER VOTRE COMPTE</button>
+                    <button id="form-button " class="btn btn-block mx-auto " type="submit " style="background-color: #ebf0f3; color: black;font-weight: bolder;font-size: 20px; width: 550px; ">CREER VOTRE COMPTE AVEC GOOGLE</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

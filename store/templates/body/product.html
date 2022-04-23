@@ -1,0 +1,22 @@
+{% load cart %} {% load custom_filter %}
+<div class="row">
+    {% for product in products %}
+    <div class="card mx-auto mb-3" id={{product.id}} style="width: 18rem;padding-top:10px;">
+        <img class="thumbnail" src="{{product.image.url}}">
+        <div class="box-element product">
+            <p>{{product.name}}</p>
+            <hr>
+            <p style="display: inline-block;float: left;">{{product.price|currency}} CFA</p>
+            <progress id="file" max="100" value="70"> 70% </progress>
+            <p style="display: inline-block;justify-content: center;">16 articles restant</p>
+
+            <form action="/#{{product.id}}" method="POST" class="btn-block">
+                {% csrf_token %}
+                <input hidden type="text" name='product' value='{{product.id}}'>
+                <input type="submit" class="btn btn-outline-secondary add-btn update-cart" value="Ajouter Au Panier">
+                <a class="btn btn-outline-success" href="{% url 'details' product.id %}">Voir</a>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+</div>

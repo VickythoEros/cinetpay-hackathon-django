@@ -1,0 +1,70 @@
+<nav class="navbar navbar-expand-lg navbar-light ">
+    <!-- Logo du site -->
+
+    <a class="navbar-brand mt-2 mt-lg-0 " href="#">
+        <img src="./static/images/navbar/logo-navbar.jpeg" alt="logo e shop" loading="lazy" />
+    </a>
+    <span class="text-reset">
+            <a class="nav-link" href="/store">Magasin<span class="sr-only">(current)</span>
+    </a>
+    </span>
+    <i class="fas fa-user mx-1"></i>
+
+    <!-- Moteur De Recherche du site -->
+    <div class="search-content mx-auto d-md-block d-none">
+        <div class="pseudo-search">
+            <input type="text" placeholder="rechercher un produit..." autofocus required>
+
+            <i class="fa fa-globe places"></i>
+            <button class="fa fa-search" type="submit"></button>
+        </div>
+    </div>
+
+    <div class="d-flex align-items-center navbar-item-contenair">
+
+        <a class="text-reset me-5" href="/cart">Mon panier
+           <span class="d-none d-md-inline" >{{request.session.cart.keys|length}}</span>
+           <span class="sr-only">(current)</span> 
+          <i class="fas fa-shopping-cart"></i>
+        </a>
+        <div class="dropdown">
+            <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                <span class="d-none d-md-block text-dark">Mon compte</span>
+                <i class="fas fa-user mx-1"></i>
+            </a>
+            {% if request.session.customer %}
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
+                <li>
+                    <a class="dropdown-item" href="/profile">Mon profil</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="/cart">Mes commandes</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="/orders">Mon historique</a>
+                </li>
+                <li>
+                    <button class="btn btn-block btn-danger border-right"><a href="/logout" style="color: white;font-weight: bolder;">Deconnexion</a></button>
+                </li>
+            </ul>
+            {% else %}
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
+                <li>
+                    <button class="btn btn-block btn-success border-right"><a href="/login" style="color: white;font-weight: bolder;">Se CONNECTER</a></button>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="/profile">Mon profil</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="/signup">S'inscrire</a>
+                </li>
+
+            </ul>
+            {% endif %}
+        </div>
+
+    </div>
+
+    </div>
+
+</nav>
